@@ -1,0 +1,23 @@
+{
+  "kind": "document_and_evidence_consistency_checks_not_runtime_tests",
+  "checks": {
+    "access_identity_preserved": true,
+    "no_oauth_requested": true,
+    "no_live_access": true,
+    "unknown_grants_are_null": true,
+    "no_gap_no_wrapper": true,
+    "six_traceable_rows": true,
+    "connector_counts_consistent": true,
+    "pin_consistent": true,
+    "scope_alternatives_readonly": true,
+    "no_runtime_claim": true,
+    "partial_results_explicit": true,
+    "benchmark_unknowns_preserved": true,
+    "relative_links_resolve": true,
+    "no_account_email_in_public_files": true,
+    "no_private_source_id_in_public_files": true
+  },
+  "passed": 15,
+  "total": 15,
+  "all_passed": true
+}

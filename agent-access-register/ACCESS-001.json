@@ -7,8 +7,8 @@
   "imported_from": "https://github.com/tuckerebc-max/harvest-external-capability/blob/31d24a00a04dec193eed8280b31b7304386b2f1c/adoptions/2026-11-11-external-skills/access-register.json",
   "import_note": "Preserves the existing ACCESS-001 identity. This R9 assessment does not grant access or alter that intake's proposal.",
   "issue": "ERI-1985",
-  "stage": "gap_assessment_only",
-  "status": "not_requested_pending_gap_evidence",
+  "stage": "assessment_complete",
+  "status": "not_requested_no_qualifying_gap_verified",
   "proposed_principal": "eric-study-group",
   "principal_note": "ERI-6 names the work principal. This does not approve a new CLI grant; current connector identity and Hermes access still require verification.",
   "other_principals_allowed": [],
@@ -18,12 +18,8 @@
     "https://www.googleapis.com/auth/drive.readonly",
     "https://www.googleapis.com/auth/calendar.readonly"
   ],
-  "prior_scope_disposition": "Do not request the broad Gmail, Drive and Calendar bundle. No qualifying R9 operation has yet been established.",
-  "minimum_candidate_for_documented_workplans_need": [
-    "https://www.googleapis.com/auth/drive.metadata.readonly",
-    "https://www.googleapis.com/auth/documents.readonly"
-  ],
-  "candidate_scope_note": "Conditional scope design only for Drive metadata discovery plus reading existing Google Docs; not requested or approved. Scope semantics will be verified before any proposal is advanced. No Gmail, Calendar, full Drive-content or write grant is proposed.",
+  "prior_scope_disposition": "The earlier proposed Gmail/Drive/Calendar bundle is retained as provenance only, not requested. No verified R9 gap supports it.",
+  "candidate_scope_note": "Scope alternatives only, not a grant request. Select only the scope needed by a future proven gap. Combined discovery plus native Docs reading would need both listed scopes; neither grants a folder-specific boundary. File/parent allowlisting and principal binding would remain required.",
   "account_approved_for_cli": false,
   "scopes_approved_for_cli": false,
   "approval_record": null,
@@ -43,7 +39,7 @@
     "Named unmet operation and accountable lane",
     "Evidence that the named lane lacks a connector",
     "Evidence that current connector paths cannot satisfy the operation",
-    "Exact minimal scopes and data boundary",
+    "Exact minimal scopes, account binding, allowed files/folders, and data route recorded",
     "Eric's account and scope approval before authentication",
     "Pinned CLI and refusal/receipt tests before live pilot"
   ],
@@ -53,5 +49,32 @@
     "Any existing actual CLI grants outside this assessment",
     "Runtime behavior of the pinned CLI"
   ],
-  "recorded_at": "2026-11-11T20:51:38.346Z"
+  "recorded_at": "2026-11-11T20:51:38.346Z",
+  "candidate_scopes_by_operation": [
+    {
+      "operation": "Discover and inspect metadata of existing Drive workplans",
+      "scopes": [
+        "https://www.googleapis.com/auth/drive.metadata.readonly"
+      ],
+      "basis": "ERI-6; Google Drive API scope documentation"
+    },
+    {
+      "operation": "Read a known native Google Doc",
+      "scopes": [
+        "https://www.googleapis.com/auth/documents.readonly"
+      ],
+      "basis": "ERI-6; Google Docs API scope documentation"
+    }
+  ],
+  "source_version": "0.22.5",
+  "source_review_only": true,
+  "upstream_runtime_tested": false,
+  "upstream_support_warning": "Upstream says this is not an officially supported Google product and warns of breaking changes before v1.0.",
+  "scope_references": [
+    "https://developers.google.com/workspace/drive/api/guides/api-specific-auth",
+    "https://developers.google.com/workspace/docs/api/auth"
+  ],
+  "observed_connector_principal": "Eric Personal 2 (verified through current connector; exact account identifier kept out of this public record)",
+  "assessment": "STOP: no qualifying gap verified in the bounded review; Hermes/other Codex runtime state remains unknown.",
+  "reviewed_at": "2026-11-11T20:56:02.576Z"
 }
