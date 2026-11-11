@@ -1,0 +1,179 @@
+{
+  "format": "navy-yard.r9.assessment.v1",
+  "issue": "ERI-1985",
+  "date": "2026-11-11",
+  "timezone": "America/Phoenix",
+  "decision": "STOP_NO_QUALIFYING_GAP_VERIFIED",
+  "decision_scope": "Current Codex connector surface and reviewed lane records; not a fleetwide guarantee.",
+  "gap_gate": "A named needed operation must lack a sufficient current connector route and belong to a verified connectorless Codex/Hermes lane.",
+  "candidate_operations": [
+    {
+      "id": "G1",
+      "operation": "Verify principal, find workplan folders and inspect Drive metadata",
+      "need_sources": [
+        "S3",
+        "S4"
+      ],
+      "lane": "Hermes / authorized Study Group context desk",
+      "tools": [
+        "google_drive_get_profile",
+        "google_drive_search",
+        "google_drive_get_file_metadata"
+      ],
+      "coverage": "exposed",
+      "live_status": "Personal 2 profile verified; work principal not tested; historical Hermes authentication blocker",
+      "connectorless_lane_evidence": "unknown_current",
+      "qualifying_gap": "not_established",
+      "reason": "Missing OAuth authentication is not an unsupported API operation."
+    },
+    {
+      "id": "G2",
+      "operation": "Read known native Google Docs workplans, with tabs and provenance",
+      "need_sources": [
+        "S3",
+        "S4"
+      ],
+      "lane": "Hermes / authorized Study Group context desk",
+      "tools": [
+        "google_drive_get_document",
+        "google_drive_get_document_text",
+        "google_drive_get_file_metadata"
+      ],
+      "coverage": "exposed",
+      "live_status": "not_run_no_work_account_content_read",
+      "connectorless_lane_evidence": "unknown_current",
+      "qualifying_gap": "not_established",
+      "reason": "Connector has native Docs readers; ERI-48 belongs to a Gemini desk and cannot establish a Codex-only gap."
+    },
+    {
+      "id": "G3",
+      "operation": "Inventory archive folders recursively and page discovery results",
+      "need_sources": [
+        "S5"
+      ],
+      "lane": "Codex archive/index lanes",
+      "tools": [
+        "google_drive_list_folder",
+        "google_drive_search",
+        "google_drive_get_file_metadata"
+      ],
+      "coverage": "exposed_with_limits",
+      "live_status": "Two bounded folder-search pages returned no visible rows and continuation tokens; census incomplete",
+      "connectorless_lane_evidence": "false_for_current_seat_unknown_for_other_seats",
+      "qualifying_gap": "not_established",
+      "reason": "Folder fetch is bounded; provider pagination exists in search. Complete mixed-file enumeration remains unverified, not zero."
+    },
+    {
+      "id": "G4",
+      "operation": "Retrieve stored archives/source files and explicitly export native documents",
+      "need_sources": [
+        "S5",
+        "S6"
+      ],
+      "lane": "Codex reader/writer handoffs",
+      "tools": [
+        "google_drive_fetch",
+        "google_drive_export_file",
+        "google_drive_get_file_metadata"
+      ],
+      "coverage": "exposed_with_provider_limits",
+      "live_status": "not_run_private_body_transport_excluded",
+      "connectorless_lane_evidence": "false_for_current_seat_unknown_for_other_seats",
+      "qualifying_gap": "not_established",
+      "reason": "Raw download and native export paths exist. Content access, large-file limits, source-use authorization and recipient readback require separate evidence."
+    },
+    {
+      "id": "G5",
+      "operation": "Create chapter folders and upload/update private deliverables",
+      "need_sources": [
+        "S5",
+        "S6"
+      ],
+      "lane": "Codex delivery lanes",
+      "tools": [
+        "google_drive_create_folder",
+        "google_drive_upload_file",
+        "google_drive_update_file",
+        "google_drive_get_file_metadata"
+      ],
+      "coverage": "exposed",
+      "live_status": "not_run_read_only_assessment",
+      "connectorless_lane_evidence": "false_for_current_seat_unknown_for_other_seats",
+      "qualifying_gap": "not_established",
+      "reason": "Write operations exist in current connectors; no writes are needed to evaluate R9."
+    },
+    {
+      "id": "G6",
+      "operation": "Verify handoff file identity, version and received bytes",
+      "need_sources": [
+        "S6"
+      ],
+      "lane": "Codex / Hermes receiving handoffs",
+      "tools": [
+        "google_drive_get_file_metadata",
+        "google_drive_list_file_revisions",
+        "google_drive_fetch_file_revision",
+        "google_drive_fetch"
+      ],
+      "coverage": "exposed_for_source_side_reads",
+      "live_status": "not_run_receiver_access_unverified",
+      "connectorless_lane_evidence": "unknown_for_Hermes",
+      "qualifying_gap": "not_established",
+      "reason": "Sender-side API methods cannot prove recipient access. A receiver acknowledgement or permission failure is not fixed merely by adding a CLI."
+    }
+  ],
+  "verified_qualifying_gaps": [],
+  "unknowns": [
+    "Current Hermes Workspace connector/authentication state",
+    "Other Codex seats' connector availability",
+    "Complete mixed-file corpus enumeration and source visibility",
+    "Live content, write, large-file and receiver-readback behavior",
+    "CLI runtime compatibility and cost",
+    "Existing grants outside this assessment"
+  ],
+  "access_entry": "../../agent-access-register/ACCESS-001.json",
+  "runtime_artifacts": {
+    "wrapper": "not_applicable_under_conditional_stop",
+    "AGENTS_md": "not_applicable_no_workbench_built",
+    "CLAUDE_md": "not_applicable_no_workbench_built",
+    "hermes_entry_notes": "not_applicable_no_workbench_built",
+    "contract_json": "not_applicable_no_workbench_built",
+    "allowlist_refusal_tests": "not_applicable_no_wrapper",
+    "cli_exit_codes": "not_applicable_no_cli_executed",
+    "kata_receipt": "unavailable_no_kata_binary_or_connector_exposed"
+  },
+  "acceptance": [
+    {
+      "check": "Gap list",
+      "status": "satisfied",
+      "evidence": "G1–G6 and sources S3–S7; unknowns explicit"
+    },
+    {
+      "check": "Wrapper restricted to verified gaps",
+      "status": "not_applicable",
+      "evidence": "No qualifying gap; user explicitly directs stop before build"
+    },
+    {
+      "check": "Allowlist refusal tests and per-call wrapper receipts",
+      "status": "not_applicable",
+      "evidence": "No wrapper and no gws calls; connector canary receipts C1–C4 retained"
+    },
+    {
+      "check": "Access-register entry",
+      "status": "satisfied_on_review_branch",
+      "evidence": "Existing ACCESS-001 ID preserved in security-standards; no requested/approved new grant"
+    },
+    {
+      "check": "Pin and upstream warnings",
+      "status": "satisfied_for_source_review",
+      "evidence": "S9–S11; source pin 0.22.5/cd3697e; no runtime tested"
+    },
+    {
+      "check": "Baseline metrics",
+      "status": "satisfied_with_explicit_unknowns",
+      "evidence": "C1–C4 timings where measured; no invented benchmark metrics"
+    }
+  ],
+  "next_trigger": "Reopen this same issue only when a lane supplies a named unmet Workspace operation and current connectorless/runtime evidence. Then choose exact scopes, obtain Eric's account/scope approval, build the smallest allowlist with negative tests, and pilot read-only using CLI discovery, pagination and authentication.",
+  "sources_file": "r9-evidence.json"
+}
